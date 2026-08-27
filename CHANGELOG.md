@@ -7,9 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-08-27
+## [0.0.2] - 2026-08-28
 
-Initial release.
+### Changed
+
+- **npm:** the package is now published as `xfingine` rather than
+  `xfingine-wasm`, matching the crates.io and PyPI names. npm accepted the
+  unsuffixed name. The crate remains `xfingine-wasm`, since Cargo refuses two
+  packages named `xfingine` in one workspace and wasm-pack has no npm-name
+  override; the publish workflow renames the generated manifest instead.
+
+### Notes
+
+- First release published through GitHub Actions rather than from a laptop, and
+  the first to use OIDC trusted publishing on all three registries. No
+  long-lived API tokens are stored in the repository or in CI secrets.
+
+## [0.0.1] - 2026-08-28
+
+Initial release. Published from a local machine to claim the `xfingine` name on
+crates.io, npm and PyPI — a prerequisite for configuring OIDC trusted
+publishing, which each registry attaches to an already-existing package. The
+contents are the full working library below rather than a placeholder stub.
 
 ### Added
 
@@ -51,11 +70,3 @@ apart from one deliberate difference:
   `emi == principal + interest` holds in whole rupees on all rows and the
   schedule sums exactly to the totals. The difference only surfaces on the final
   row of a loan with a non-round principal.
-
-## [0.0.1] - 2026-08-28
-
-Name reservation release, published to claim `xfingine` on all three registries
-ahead of the real 0.1.0. Contents are the same working library described under
-0.1.0 rather than a stub, so the version is usable rather than merely a
-placeholder. The npm package is plain `xfingine`, not `xfingine-wasm` — npm
-accepted the unsuffixed name, so it matches the crates.io and PyPI names.

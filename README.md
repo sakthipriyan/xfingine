@@ -171,7 +171,7 @@ Each engine lives behind its own Cargo feature, so a WASM bundle only carries
 the maths it actually uses:
 
 ```toml
-xfingine = { version = "0.1", default-features = false, features = ["emi"] }
+xfingine = { version = "0.0.2", default-features = false, features = ["emi"] }
 ```
 
 ---

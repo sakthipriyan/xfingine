@@ -39,7 +39,7 @@
 //!
 //! ```toml
 //! # just the EMI engine
-//! xfingine = { version = "0.1", default-features = false, features = ["emi"] }
+//! xfingine = { version = "0.0.2", default-features = false, features = ["emi"] }
 //! ```
 //!
 //! ## Conventions
