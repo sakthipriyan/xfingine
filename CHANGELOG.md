@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **CI:** the macOS Intel wheel job targeted the `macos-13` runner, which
+  GitHub has retired, so it sat queued forever and never got a machine. Since
+  `pypi_publish` waits on every wheel job, this blocked the PyPI upload for
+  0.0.2 while crates.io and npm published normally. Both macOS wheels now build
+  on `macos-latest` (Apple Silicon), with x86_64 cross-compiled — Xcode ships
+  both SDKs, so it needs nothing beyond the extra rustup target. Verified
+  locally: the cross-compiled wheel contains a genuine `Mach-O 64-bit x86_64`
+  extension.
+- **CI:** the Linux wheel jobs pinned `ubuntu-22.04`, which will be retired the
+  same way. Switched to `ubuntu-latest`; manylinux compatibility comes from
+  maturin-action's container, not from the host image.
+
 ## [0.0.2] - 2026-08-28
 
 ### Changed

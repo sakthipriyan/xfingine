@@ -115,7 +115,7 @@ jobs:
     name: Wheels (linux ${{ matrix.target }})
     if: github.event_name == 'push' || inputs.publish_pypi != false
     needs: test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -139,13 +139,14 @@ jobs:
     name: Wheels (macos ${{ matrix.target }})
     if: github.event_name == 'push' || inputs.publish_pypi != false
     needs: test
-    runs-on: ${{ matrix.runner }}
+    # Both targets build on Apple Silicon: GitHub retired the macos-13 Intel
+    # runner, so x86_64 is cross-compiled. Xcode ships both SDKs, so this needs
+    # nothing beyond the extra rustup target that maturin-action installs.
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - { runner: macos-13, target: x86_64 }
-          - { runner: macos-14, target: aarch64 }
+        target: [x86_64-apple-darwin, aarch64-apple-darwin]
     steps:
       - uses: actions/checkout@v4
       - name: Build wheel
