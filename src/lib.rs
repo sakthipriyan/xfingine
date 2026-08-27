@@ -10,7 +10,7 @@
 //! | Ecosystem | Package | Install |
 //! |---|---|---|
 //! | Rust | [`xfingine`](https://crates.io/crates/xfingine) | `cargo add xfingine` |
-//! | JavaScript | [`xfingine-wasm`](https://www.npmjs.com/package/xfingine-wasm) | `npm i xfingine-wasm` |
+//! | JavaScript | [`xfingine`](https://www.npmjs.com/package/xfingine) | `npm i xfingine` |
 //! | Python | [`xfingine`](https://pypi.org/project/xfingine/) | `pip install xfingine` |
 //!
 //! ## Engines

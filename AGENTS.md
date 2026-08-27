@@ -21,8 +21,14 @@ sakthipriyan.com, which loads the WASM bundle.
   into `model.rs` (the serde types on the wire) and `engine.rs` (the maths).
   Shared helpers live in `src/num.rs`; all errors are `XfingineError`.
 - **WASM (`wasm/`):** `wasm-bindgen` wrappers published to npm as
-  `xfingine-wasm`. Every engine is exposed twice — object in/out, and a `_json`
+  `xfingine`. Every engine is exposed twice — object in/out, and a `_json`
   twin taking and returning strings.
+
+  **Name gotcha:** the *crate* is `xfingine-wasm` but the *npm package* is
+  plain `xfingine`. Cargo refuses two packages named `xfingine` in one
+  workspace, and wasm-pack has no npm-name override — so the publish workflow
+  builds with `--out-name xfingine` and then runs `npm pkg set name=xfingine`
+  before publishing. Keep using `-p xfingine-wasm` for cargo commands.
 - **Python (`python/`):** `pyo3` + `pythonize` wrappers published to PyPI as
   `xfingine`. Same dual shape: dict in/out, plus a `_json` twin.
 - **`xtask/`:** Release automation only. Not published.

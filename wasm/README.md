@@ -1,4 +1,4 @@
-# xfingine-wasm
+# xfingine
 
 WebAssembly bindings for [**Xfingine**](https://github.com/sakthipriyan/xfingine) —
 pure computation engines for personal finance planning.
@@ -7,13 +7,13 @@ Data in, arithmetic, data out. No UI, no network, no clock. The engines run
 entirely in your browser.
 
 ```bash
-npm i xfingine-wasm
+npm i xfingine
 ```
 
 ## Usage
 
 ```js
-import init, { compute_emi, version } from 'xfingine-wasm';
+import init, { compute_emi, version } from 'xfingine';
 
 await init();
 

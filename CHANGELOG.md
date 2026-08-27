@@ -21,7 +21,7 @@ Initial release.
   headline totals, the full month-by-month schedule, and an optional
   per-calendar-year breakdown. Ported from `realvalue-emi-engine.js` on
   sakthipriyan.com.
-- **WASM bindings (`xfingine-wasm` on npm):** Each engine exposed as both an
+- **WASM bindings (`xfingine` on npm):** Each engine exposed as both an
   object-in/object-out function and a `_json` string variant.
 - **Python bindings (`xfingine` on PyPI):** Each engine exposed as both a
   dict-in/dict-out function and a `_json` string variant, via `pyo3`.
@@ -51,3 +51,11 @@ apart from one deliberate difference:
   `emi == principal + interest` holds in whole rupees on all rows and the
   schedule sums exactly to the totals. The difference only surfaces on the final
   row of a loan with a non-round principal.
+
+## [0.0.1] - 2026-08-28
+
+Name reservation release, published to claim `xfingine` on all three registries
+ahead of the real 0.1.0. Contents are the same working library described under
+0.1.0 rather than a stub, so the version is usable rather than merely a
+placeholder. The npm package is plain `xfingine`, not `xfingine-wasm` — npm
+accepted the unsuffixed name, so it matches the crates.io and PyPI names.

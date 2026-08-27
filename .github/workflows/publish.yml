@@ -100,11 +100,14 @@ jobs:
           fi
       - name: Build WASM (Web Target)
         working-directory: wasm
-        run: wasm-pack build --target web
+        run: wasm-pack build --target web --out-name xfingine
       - name: Publish to NPM
         working-directory: wasm/pkg
         run: |
           npm install -g npm@latest
+          # The crate is xfingine-wasm (a workspace cannot hold two packages
+          # named xfingine), but the npm package is plain xfingine.
+          npm pkg set name=xfingine
           unset NODE_AUTH_TOKEN
           npm publish --access public --provenance
 
