@@ -31,6 +31,12 @@ sakthipriyan.com, which loads the WASM bundle.
   before publishing. Keep using `-p xfingine-wasm` for cargo commands.
 - **Python (`python/`):** `pyo3` + `pythonize` wrappers published to PyPI as
   `xfingine`. Same dual shape: dict in/out, plus a `_json` twin.
+
+  Built against the **stable ABI** (`pyo3/abi3-py38`), so one wheel per OS/arch
+  covers CPython 3.8+. Never drop the `abi3-py38` feature to pick up a
+  version-specific pyo3 API — doing so silently multiplies the release matrix
+  by every supported Python version and leaves most users with no wheel. It
+  also rules out PyPy, which is why `pyproject.toml` claims CPython only.
 - **`xtask/`:** Release automation only. Not published.
 
 The bindings must stay **thin**. They deserialize, call one core function, and
