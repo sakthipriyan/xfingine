@@ -1,0 +1,51 @@
+[package]
+name = "xfingine"
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[workspace]
+resolver = "2"
+members = [
+    "wasm",
+    "python",
+    "xtask"
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/sakthipriyan/xfingine"
+homepage = "https://github.com/sakthipriyan/xfingine"
+description = "Pure computation engines for personal finance planning — inflation-adjusted EMI schedules and more"
+readme = "README.md"
+keywords = ["finance", "emi", "loan", "amortization", "inflation"]
+categories = ["finance", "mathematics", "algorithms", "wasm"]
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "2.0"
+wasm-bindgen = "0.2"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+
+[features]
+default = ["all"]
+all = ["emi"]
+
+# Engines
+emi = []
+
+[dev-dependencies]
+serde_json = { workspace = true }

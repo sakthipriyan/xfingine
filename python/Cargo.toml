@@ -1,0 +1,25 @@
+[package]
+name = "xfingine-py"
+version.workspace = true
+edition.workspace = true
+description = "Python bindings for xfingine — pure computation engines for personal finance"
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme = "README.md"
+publish = false
+
+[lib]
+name = "xfingine"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.21", features = ["extension-module"] }
+pythonize = "0.21"
+serde_json = { workspace = true }
+
+xfingine = { path = "..", default-features = false }
+
+[features]
+default = ["emi"]
+emi = ["xfingine/emi"]

@@ -1,0 +1,146 @@
+[
+  {
+    "name": "home-50L-20y-9-6",
+    "mode": "emi",
+    "loanAmount": 5000000,
+    "months": 240,
+    "interestRate": 9,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "home-1Cr-30y-8.5-6",
+    "mode": "emi",
+    "loanAmount": 10000000,
+    "months": 360,
+    "interestRate": 8.5,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "car-8L-7y-9.5-5",
+    "mode": "emi",
+    "loanAmount": 800000,
+    "months": 84,
+    "interestRate": 9.5,
+    "inflationRate": 5,
+    "start": "2026-01"
+  },
+  {
+    "name": "personal-3L-3y-14-6",
+    "mode": "emi",
+    "loanAmount": 300000,
+    "months": 36,
+    "interestRate": 14,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "zero-interest-1L-10m",
+    "mode": "emi",
+    "loanAmount": 100000,
+    "months": 10,
+    "interestRate": 0,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "zero-inflation-50L-20y",
+    "mode": "emi",
+    "loanAmount": 5000000,
+    "months": 240,
+    "interestRate": 9,
+    "inflationRate": 0,
+    "start": "2026-01"
+  },
+  {
+    "name": "tiny-1000-2m-12-6",
+    "mode": "emi",
+    "loanAmount": 1000,
+    "months": 2,
+    "interestRate": 12,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "max-tenure-50y",
+    "mode": "emi",
+    "loanAmount": 5000000,
+    "months": 600,
+    "interestRate": 9,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "tenure-50L-50k-9-6",
+    "mode": "tenure",
+    "loanAmount": 5000000,
+    "emi": 50000,
+    "interestRate": 9,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "tenure-50L-45k-9-6",
+    "mode": "tenure",
+    "loanAmount": 5000000,
+    "emi": 45000,
+    "interestRate": 9,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "tenure-zero-rate",
+    "mode": "tenure",
+    "loanAmount": 100000,
+    "emi": 9000,
+    "interestRate": 0,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "loan-from-50k-20y-9-6",
+    "mode": "loanAmount",
+    "emi": 50000,
+    "months": 240,
+    "interestRate": 9,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "loan-from-25k-15y-10-7",
+    "mode": "loanAmount",
+    "emi": 25000,
+    "months": 180,
+    "interestRate": 10,
+    "inflationRate": 7,
+    "start": "2026-01"
+  },
+  {
+    "name": "loan-zero-rate",
+    "mode": "loanAmount",
+    "emi": 10000,
+    "months": 12,
+    "interestRate": 0,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "high-rate-24pc",
+    "mode": "emi",
+    "loanAmount": 200000,
+    "months": 24,
+    "interestRate": 24,
+    "inflationRate": 6,
+    "start": "2026-01"
+  },
+  {
+    "name": "odd-amount",
+    "mode": "emi",
+    "loanAmount": 1234567,
+    "months": 137,
+    "interestRate": 8.75,
+    "inflationRate": 5.5,
+    "start": "2026-01"
+  }
+]

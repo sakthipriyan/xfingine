@@ -1,0 +1,25 @@
+[build-system]
+requires = ["maturin>=1.5,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "xfingine"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Office/Business :: Financial",
+]
+dynamic = ["version"]
+description = "Pure computation engines for personal finance planning - inflation-adjusted EMI schedules and more"
+readme = "README.md"
+
+[project.urls]
+Homepage = "https://github.com/sakthipriyan/xfingine"
+Repository = "https://github.com/sakthipriyan/xfingine"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+module-name = "xfingine"

@@ -1,0 +1,25 @@
+[package]
+name = "xfingine-wasm"
+version.workspace = true
+edition.workspace = true
+description = "WebAssembly bindings for xfingine — pure computation engines for personal finance"
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme = "README.md"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen.workspace = true
+js-sys = "0.3"
+serde.workspace = true
+serde_json.workspace = true
+
+xfingine = { path = "..", default-features = false }
+
+[features]
+default = ["emi"]
+emi = ["xfingine/emi"]
