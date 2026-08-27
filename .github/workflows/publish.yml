@@ -100,44 +100,107 @@ jobs:
           fi
       - name: Build WASM (Web Target)
         working-directory: wasm
-        run: wasm-pack build --target web
+        run: wasm-pack build --target web --out-name xfingine
       - name: Publish to NPM
         working-directory: wasm/pkg
         run: |
           npm install -g npm@latest
+          # The crate is xfingine-wasm (a workspace cannot hold two packages
+          # named xfingine), but the npm package is plain xfingine.
+          npm pkg set name=xfingine
           unset NODE_AUTH_TOKEN
           npm publish --access public --provenance
 
-  pypi:
-    name: Publish to PyPI
+  wheels_linux:
+    name: Wheels (linux ${{ matrix.target }})
     if: github.event_name == 'push' || inputs.publish_pypi != false
     needs: test
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        target: [x86_64, aarch64]
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Build wheel
+        uses: PyO3/maturin-action@v1
         with:
-          python-version: '3.11'
-      - name: Install Maturin
-        run: pip install maturin
-      - name: Build Wheels
-        working-directory: python
-        run: maturin build --release --out dist
-      - name: Upload wheels
-        uses: actions/upload-artifact@v4
+          target: ${{ matrix.target }}
+          args: --release --out dist
+          manylinux: auto
+          sccache: 'true'
+          working-directory: python
+      - uses: actions/upload-artifact@v4
         with:
-          name: wheels-${{ matrix.os }}
-          path: python/dist/
+          name: wheels-linux-${{ matrix.target }}
+          path: python/dist
+
+  wheels_macos:
+    name: Wheels (macos ${{ matrix.target }})
+    if: github.event_name == 'push' || inputs.publish_pypi != false
+    needs: test
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { runner: macos-13, target: x86_64 }
+          - { runner: macos-14, target: aarch64 }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build wheel
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          args: --release --out dist
+          sccache: 'true'
+          working-directory: python
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-macos-${{ matrix.target }}
+          path: python/dist
+
+  wheels_windows:
+    name: Wheels (windows x64)
+    if: github.event_name == 'push' || inputs.publish_pypi != false
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build wheel
+        uses: PyO3/maturin-action@v1
+        with:
+          target: x64
+          args: --release --out dist
+          sccache: 'true'
+          working-directory: python
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-windows-x64
+          path: python/dist
+
+  sdist:
+    name: Source distribution
+    if: github.event_name == 'push' || inputs.publish_pypi != false
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build sdist
+        uses: PyO3/maturin-action@v1
+        with:
+          command: sdist
+          args: --out dist
+          working-directory: python
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-sdist
+          path: python/dist
 
   pypi_publish:
     name: Upload to PyPI
     if: github.event_name == 'push' || inputs.publish_pypi != false
-    needs: pypi
+    needs: [wheels_linux, wheels_macos, wheels_windows, sdist]
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -148,6 +211,8 @@ jobs:
           pattern: wheels-*
           merge-multiple: true
           path: dist
+      - name: List artifacts
+        run: ls -l dist
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:

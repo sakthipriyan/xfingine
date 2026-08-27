@@ -7,9 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-08-27
+## [0.0.2] - 2026-08-28
 
-Initial release.
+### Changed
+
+- **npm:** the package is now published as `xfingine` rather than
+  `xfingine-wasm`, matching the crates.io and PyPI names. npm accepted the
+  unsuffixed name. The crate remains `xfingine-wasm`, since Cargo refuses two
+  packages named `xfingine` in one workspace and wasm-pack has no npm-name
+  override; the publish workflow renames the generated manifest instead.
+
+### Fixed
+
+- **Python wheels:** the PyPI job built a single wheel for whichever platform
+  and CPython version the runner happened to have, so only that exact
+  combination could `pip install xfingine` without a Rust toolchain — 0.0.1
+  shipped nothing but a macOS arm64 CPython 3.9 wheel. Fixed on three fronts,
+  mirroring [sakthipriyan/xfina#58](https://github.com/sakthipriyan/xfina/issues/58):
+  - The extension now builds against the **stable ABI** (`pyo3/abi3-py38`), so
+    one wheel per OS/arch covers CPython 3.8+ instead of needing one per
+    version — turning a ~25-build matrix into 5.
+  - Wheels are built for **linux x86_64 / aarch64, macOS x86_64 / arm64, and
+    windows x64** via `PyO3/maturin-action`, which cross-compiles properly. A
+    plain `maturin build` only ever targets the runner's own platform, which
+    was the root cause.
+  - An **sdist** is built and uploaded as its own job, giving pip a source
+    fallback on any platform without a prebuilt wheel.
+- **Python metadata:** `pyproject.toml` advertised PyPy support that an abi3
+  CPython extension cannot provide. Replaced with explicit CPython 3.8–3.13
+  classifiers, so the metadata matches what is actually shipped.
+
+### Notes
+
+- First release published through GitHub Actions rather than from a laptop, and
+  the first to use OIDC trusted publishing on all three registries. No
+  long-lived API tokens are stored in the repository or in CI secrets.
+
+## [0.0.1] - 2026-08-28
+
+Initial release. Published from a local machine to claim the `xfingine` name on
+crates.io, npm and PyPI — a prerequisite for configuring OIDC trusted
+publishing, which each registry attaches to an already-existing package. The
+contents are the full working library below rather than a placeholder stub.
 
 ### Added
 
@@ -21,7 +60,7 @@ Initial release.
   headline totals, the full month-by-month schedule, and an optional
   per-calendar-year breakdown. Ported from `realvalue-emi-engine.js` on
   sakthipriyan.com.
-- **WASM bindings (`xfingine-wasm` on npm):** Each engine exposed as both an
+- **WASM bindings (`xfingine` on npm):** Each engine exposed as both an
   object-in/object-out function and a `_json` string variant.
 - **Python bindings (`xfingine` on PyPI):** Each engine exposed as both a
   dict-in/dict-out function and a `_json` string variant, via `pyo3`.

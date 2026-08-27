@@ -2,7 +2,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/xfingine.svg?color=orange)](https://crates.io/crates/xfingine)
 [![PyPI](https://img.shields.io/pypi/v/xfingine.svg?color=blue)](https://pypi.org/project/xfingine/)
-[![npm](https://img.shields.io/npm/v/xfingine-wasm.svg?color=yellow)](https://www.npmjs.com/package/xfingine-wasm)
+[![npm](https://img.shields.io/npm/v/xfingine.svg?color=yellow)](https://www.npmjs.com/package/xfingine)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
 
 **Xfingine** is the computation layer behind the personal-finance tools on
@@ -21,7 +21,7 @@ One core written in Rust, shipped three ways:
 | Ecosystem | Package | Install |
 |---|---|---|
 | 🦀 Rust | [`xfingine`](https://crates.io/crates/xfingine) | `cargo add xfingine` |
-| 🟨 JavaScript | [`xfingine-wasm`](https://www.npmjs.com/package/xfingine-wasm) | `npm i xfingine-wasm` |
+| 🟨 JavaScript | [`xfingine`](https://www.npmjs.com/package/xfingine) | `npm i xfingine` |
 | 🐍 Python | [`xfingine`](https://pypi.org/project/xfingine/) | `pip install xfingine` |
 
 ---
@@ -103,7 +103,7 @@ println!("Real cost    ₹{}", result.totals.real_paid);       // ₹6391327
 ### JavaScript
 
 ```js
-import init, { compute_emi } from 'xfingine-wasm';
+import init, { compute_emi } from 'xfingine';
 
 await init();
 
@@ -154,7 +154,7 @@ graph TD
     end
 
     subgraph Targets ["Delivery targets"]
-        D["wasm/<br/>xfingine-wasm → npm"]
+        D["wasm/<br/>xfingine → npm"]
         E["python/<br/>xfingine → PyPI"]
         F["crates.io"]
     end
@@ -171,7 +171,7 @@ Each engine lives behind its own Cargo feature, so a WASM bundle only carries
 the maths it actually uses:
 
 ```toml
-xfingine = { version = "0.1", default-features = false, features = ["emi"] }
+xfingine = { version = "0.0.2", default-features = false, features = ["emi"] }
 ```
 
 ---
