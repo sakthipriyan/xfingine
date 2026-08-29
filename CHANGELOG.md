@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-08-29
+
 ### Added
 
 - **Categorizer Engine (`categorizer` feature):** A rule-based transaction auto-mapping engine. It maps transaction descriptions to deterministic `(category, merchant)` paths based on configured keywords, and includes a feedback loop algorithm to automatically extract new rule patterns from manually labeled transactions using a TF-IDF-inspired token exclusivity heuristic.
