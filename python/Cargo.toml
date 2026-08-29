@@ -21,5 +21,6 @@ serde_json = { workspace = true }
 xfingine = { path = "..", default-features = false }
 
 [features]
-default = ["emi"]
+default = ["emi", "categorizer"]
 emi = ["xfingine/emi"]
+categorizer = ["xfingine/categorizer"]

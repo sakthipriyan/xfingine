@@ -38,6 +38,22 @@ bind_engine!(
     ::xfingine::emi::compute
 );
 
+#[cfg(feature = "categorizer")]
+bind_engine!(
+    categorize_transactions,
+    categorize_transactions_json,
+    ::xfingine::categorizer::CategorizeRequest,
+    ::xfingine::categorizer::categorize_transactions
+);
+
+#[cfg(feature = "categorizer")]
+bind_engine!(
+    derive_rules,
+    derive_rules_json,
+    ::xfingine::categorizer::DeriveRulesRequest,
+    ::xfingine::categorizer::derive_rules
+);
+
 #[pymodule]
 fn xfingine(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
@@ -46,6 +62,14 @@ fn xfingine(m: &Bound<'_, PyModule>) -> PyResult<()> {
     {
         m.add_function(wrap_pyfunction!(compute_emi, m)?)?;
         m.add_function(wrap_pyfunction!(compute_emi_json, m)?)?;
+    }
+
+    #[cfg(feature = "categorizer")]
+    {
+        m.add_function(wrap_pyfunction!(categorize_transactions, m)?)?;
+        m.add_function(wrap_pyfunction!(categorize_transactions_json, m)?)?;
+        m.add_function(wrap_pyfunction!(derive_rules, m)?)?;
+        m.add_function(wrap_pyfunction!(derive_rules_json, m)?)?;
     }
 
     Ok(())

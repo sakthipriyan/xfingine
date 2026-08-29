@@ -42,10 +42,11 @@ thiserror = { workspace = true }
 
 [features]
 default = ["all"]
-all = ["emi"]
+all = ["emi", "categorizer"]
 
 # Engines
 emi = []
+categorizer = []
 
 [dev-dependencies]
 serde_json = { workspace = true }
