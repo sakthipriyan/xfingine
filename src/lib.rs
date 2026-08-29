@@ -54,5 +54,8 @@
 #[cfg(feature = "emi")]
 pub mod emi;
 
+#[cfg(feature = "categorizer")]
+pub mod categorizer;
+
 pub mod error;
 pub mod num;

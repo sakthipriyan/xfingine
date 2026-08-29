@@ -174,6 +174,90 @@ export interface EmiResult {
 #[cfg(feature = "emi")]
 pub use emi::{compute_emi, compute_emi_json};
 
+#[cfg(feature = "categorizer")]
+mod categorizer {
+    use super::*;
+
+    #[wasm_bindgen(typescript_custom_section)]
+    const CATEGORIZER_TYPES: &'static str = r#"
+export interface CategoryRule {
+  pattern: string;
+  category: string;
+  merchant: string;
+}
+
+export interface MapInput {
+  narration: string;
+}
+
+export interface MapOutput {
+  category: string;
+  merchant: string;
+}
+
+export interface CategorizeRequest {
+  data: MapInput[];
+  rules: CategoryRule[];
+}
+
+export interface CategorizeResponse {
+  data: (MapOutput | null)[];
+}
+
+export interface DeriveInput {
+  narration: string;
+  category: string;
+  merchant: string;
+}
+
+export interface DeriveRulesRequest {
+  data: DeriveInput[];
+}
+
+export interface DeriveRulesResponse {
+  rules: CategoryRule[];
+}
+"#;
+
+    #[wasm_bindgen]
+    extern "C" {
+        #[wasm_bindgen(typescript_type = "CategorizeRequest")]
+        pub type JsCategorizeRequest;
+
+        #[wasm_bindgen(typescript_type = "CategorizeResponse")]
+        pub type JsCategorizeResponse;
+
+        #[wasm_bindgen(typescript_type = "DeriveRulesRequest")]
+        pub type JsDeriveRulesRequest;
+
+        #[wasm_bindgen(typescript_type = "DeriveRulesResponse")]
+        pub type JsDeriveRulesResponse;
+    }
+
+    bind_engine!(
+        categorize_transactions,
+        categorize_transactions_json,
+        xfingine::categorizer::CategorizeRequest,
+        xfingine::categorizer::categorize_transactions,
+        JsCategorizeRequest,
+        JsCategorizeResponse
+    );
+
+    bind_engine!(
+        derive_rules,
+        derive_rules_json,
+        xfingine::categorizer::DeriveRulesRequest,
+        xfingine::categorizer::derive_rules,
+        JsDeriveRulesRequest,
+        JsDeriveRulesResponse
+    );
+}
+
+#[cfg(feature = "categorizer")]
+pub use categorizer::{
+    categorize_transactions, categorize_transactions_json, derive_rules, derive_rules_json,
+};
+
 /// The version of the `xfingine` engine this bundle was built from.
 #[wasm_bindgen]
 pub fn version() -> String {

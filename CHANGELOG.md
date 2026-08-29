@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Categorizer Engine (`categorizer` feature):** A rule-based transaction auto-mapping engine. It maps transaction descriptions to deterministic `(category, merchant)` paths based on configured keywords, and includes a feedback loop algorithm to automatically extract new rule patterns from manually labeled transactions using a TF-IDF-inspired token exclusivity heuristic.
+
 ### Fixed
 
+- **CI:** bumped `actions/checkout`, `actions/setup-node`, and `actions/upload-artifact` to v7, and `actions/download-artifact` to v8, to move off the deprecated Node 20 runtime.
 - **CI:** the macOS Intel wheel job targeted the `macos-13` runner, which
   GitHub has retired, so it sat queued forever and never got a machine. Since
   `pypi_publish` waits on every wheel job, this blocked the PyPI upload for
