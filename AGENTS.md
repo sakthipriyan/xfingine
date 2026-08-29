@@ -115,14 +115,19 @@ The engines originate as `.js` files in
 
 ## Release Process
 
+Ideally, the code change and version bump should happen in the same feature branch, rather than via a separate release PR.
+
 ```bash
-cargo xtask prepare-release <major|minor|patch>   # bumps version, rolls changelog, branches
-# push, open a PR, merge to main
+# 1. In your feature branch, before or while opening the PR:
+cargo xtask prepare-release <major|minor|patch>   # bumps version, rolls changelog
+# (If xtask creates a branch, just merge those changes back into your feature branch)
+
+# 2. Push, open a PR, and stop. Merging is the maintainer's call.
+
+# 3. Post squash merge, run from the main branch:
 cargo xtask tag-release                          # tags main and pushes
 ```
 
 The tag fires `.github/workflows/publish.yml` → crates.io, npm, PyPI in
 parallel. PRs touching `src/`, `wasm/`, `python/`, `tests/` or `Cargo.toml`
 **must** update `CHANGELOG.md`; CI fails the PR otherwise.
-
-Open the PR and stop — merging is the maintainer's call, per PR.
