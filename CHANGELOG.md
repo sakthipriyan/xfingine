@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **CI:** the pull-request workflow is now `check-pr.yml` ("Check PR") with a
+  single `Library` job, matching GitHub's own "checks" vocabulary and the
+  verb-first `Deploy *` / `Publish` naming used across the sibling repos. The
+  publish workflow is now simply "Publish".
+- **CI:** the changelog gate now watches `xtask/` as a core path. Changes
+  confined to the release tooling previously skipped both the changelog
+  requirement and every test in the job, while still reporting green.
+
 ## [0.1.0] - 2026-08-29
 
 ### Added
